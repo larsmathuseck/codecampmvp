@@ -10,5 +10,6 @@ data class WeatherData(
 @JsonClass(generateAdapter = true)
 data class Current(
     @Json(name = "time") val time: String,
-    @Json(name = "temperature") val temperature: Double
+    @Json(name = "temperature") val temperature: Double,
+    @Json(name = "precipitation_probability") val precipitationProbability: Double
 )
