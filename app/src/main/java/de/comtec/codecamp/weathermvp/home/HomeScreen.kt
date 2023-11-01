@@ -1,13 +1,16 @@
 package de.comtec.codecamp.weathermvp.home
 
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 
 
 @Preview
 @Composable
-fun HomeScreen(
-) {
-    Text("Hello World!")
+fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
+
+    val weather = viewModel.weatherData.value
+
+    val temp = weather?.current?.temperature
+
 }

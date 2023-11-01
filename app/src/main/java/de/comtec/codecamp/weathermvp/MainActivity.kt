@@ -17,9 +17,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavDestination
 import androidx.navigation.NavDestination.Companion.hierarchy
+import dagger.hilt.android.AndroidEntryPoint
 import de.comtec.codecamp.weathermvp.navigation.WeatherScreen
 import de.comtec.codecamp.weathermvp.ui.theme.WeatherMVPTheme
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,4 +32,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-

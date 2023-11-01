@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -48,6 +50,11 @@ android {
     }
 }
 
+
+kapt {
+    correctErrorTypes = true
+}
+
 dependencies {
     // AndroidX
     implementation("androidx.core:core-ktx:1.12.0")
@@ -75,5 +82,18 @@ dependencies {
     // Navigation compose
     val navVersion = "2.7.4"
     implementation("androidx.navigation:navigation-compose:$navVersion")
+
+    // Moshi
+    implementation("com.squareup.moshi:moshi:1.14.0")
+
+    // Network
+    implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+
+    // Dagger Hilt
+    implementation("com.google.dagger:hilt-android:2.48.1")
+    kapt("com.google.dagger:hilt-android-compiler:2.48.1")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
 
 }
