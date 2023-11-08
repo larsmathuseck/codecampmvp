@@ -12,6 +12,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -24,10 +25,14 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
     val weather = viewModel.weatherData.value
     val loading = viewModel.loading.value
+    val network = viewModel.internetAccess.collectAsState().value
 
+    // TODO: Do this only, if network is available
     LaunchedEffect(key1 = Unit, block = {
         viewModel.fetchWeatherData()
     })
+
+    // TODO handle no internet access on the UI
 
     Column {
 

@@ -1,17 +1,21 @@
 package de.comtec.codecamp.weathermvp.di
 
+import android.content.Context
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import de.comtec.codecamp.weathermvp.data.model.WeatherData
 import de.comtec.codecamp.weathermvp.data.network.QuotesService
 import de.comtec.codecamp.weathermvp.data.network.WeatherService
+import de.comtec.codecamp.weathermvp.data.repositories.NetworkRepository
 import de.comtec.codecamp.weathermvp.data.repositories.QuotesRepository
 import de.comtec.codecamp.weathermvp.data.repositories.WeatherRepository
+import org.intellij.lang.annotations.PrintFormat
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -23,11 +27,15 @@ object RepoModule {
     data class RetroFitHolder(val weatherRetrofit: Retrofit, val quotesRetrofit: Retrofit)
 
     @Provides
+    fun providesNetworkRepository(@ApplicationContext context: Context): NetworkRepository {
+        return NetworkRepository(context)
+    }
+
+    @Provides
     fun providesRetroFit(): RetroFitHolder {
 
         val weatherRetrofit =
-            Retrofit.Builder().baseUrl("https://api.open-meteo.com/v1/")
-                .addConverterFactory(
+            Retrofit.Builder().baseUrl("https://api.open-meteo.com/v1/").addConverterFactory(
                     MoshiConverterFactory.create(
                         Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
                     )
