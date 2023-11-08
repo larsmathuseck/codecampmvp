@@ -2,8 +2,12 @@ package de.comtec.codecamp.weathermvp.home
 
 import android.health.connect.datatypes.units.Temperature
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
@@ -19,14 +23,30 @@ import androidx.hilt.navigation.compose.hiltViewModel
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
     val weather = viewModel.weatherData.value
+    val loading = viewModel.loading.value
 
     LaunchedEffect(key1 = Unit, block = {
         viewModel.fetchWeatherData()
     })
 
     Column {
-        TemperatureInfo(weather?.current?.temperature ?: 20.0)
-        PrecipitationInfo(weather?.current?.precipitationProbability ?: 0.0)
+
+        if (loading) {
+            Column {
+                Text(text = "Loading...")
+                Spacer(modifier = Modifier.size(16.dp))
+                CircularProgressIndicator()
+            }
+        } else {
+            TemperatureInfo(weather?.current?.temperature ?: 20.0)
+            PrecipitationInfo(weather?.current?.precipitationProbability ?: 0.0)
+            Button(onClick = {
+                viewModel.fetchWeatherData()
+            }) {
+                Text(text = "Refresh")
+            }
+        }
+
     }
 }
 
