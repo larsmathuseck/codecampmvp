@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
         viewModelScope.launch {
             loading.value = true
             weatherData.value = weatherRepository.fetchWeatherData()
-            delay(3000)
+            delay(1000)
             loading.value = false
         }
     }
