@@ -1,6 +1,7 @@
 package de.comtec.codecamp.weathermvp.di
 
 import android.content.Context
+import androidx.room.Room
 import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -9,6 +10,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import de.comtec.codecamp.weathermvp.data.database.WeatherDatabase
 import de.comtec.codecamp.weathermvp.data.model.WeatherData
 import de.comtec.codecamp.weathermvp.data.network.QuotesService
 import de.comtec.codecamp.weathermvp.data.network.WeatherService
@@ -36,10 +38,10 @@ object RepoModule {
 
         val weatherRetrofit =
             Retrofit.Builder().baseUrl("https://api.open-meteo.com/v1/").addConverterFactory(
-                    MoshiConverterFactory.create(
-                        Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
-                    )
-                ).build()
+                MoshiConverterFactory.create(
+                    Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+                )
+            ).build()
 
         val quotesRetrofit = Retrofit.Builder().baseUrl("https://api.quotable.io/")
             .addConverterFactory(MoshiConverterFactory.create()).build()
@@ -65,6 +67,13 @@ object RepoModule {
     @Provides
     fun provideQuotesRepo(api: QuotesService): QuotesRepository {
         return QuotesRepository(api)
+    }
+
+    @Provides
+    fun providesDatabase(context: Context): WeatherDatabase {
+        return Room.databaseBuilder(
+            context, WeatherDatabase::class.java, "weatherdatabase"
+        ).build()
     }
 
 }
