@@ -14,7 +14,9 @@ import de.comtec.codecamp.weathermvp.data.network.QuotesService
 import de.comtec.codecamp.weathermvp.data.network.WeatherService
 import de.comtec.codecamp.weathermvp.data.repositories.NetworkRepository
 import de.comtec.codecamp.weathermvp.data.repositories.QuotesRepository
+import de.comtec.codecamp.weathermvp.data.repositories.SettingsRepository
 import de.comtec.codecamp.weathermvp.data.repositories.WeatherRepository
+import de.comtec.codecamp.weathermvp.util.dataStore
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -72,6 +74,12 @@ object RepoModule {
         return Room.databaseBuilder(
             context, WeatherDatabase::class.java, "weatherdatabase"
         ).build()
+    }
+
+    @Provides
+    fun providesSettingsRepo(context: Context): SettingsRepository {
+        val dataStore = context.dataStore
+        return SettingsRepository(dataStore)
     }
 
 
