@@ -83,11 +83,11 @@ dependencies {
     // Moshi
     implementation("com.squareup.moshi:moshi:1.14.0")
     implementation("com.squareup.moshi:moshi-kotlin:1.14.0")
-    implementation ("com.squareup.retrofit2:converter-moshi:2.4.0")
+    implementation("com.squareup.retrofit2:converter-moshi:2.4.0")
 
     // Network
     implementation("com.squareup.okhttp3:okhttp:4.11.0")
-    implementation ("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
 
     // Dagger Hilt
     implementation("com.google.dagger:hilt-android:2.48.1")
@@ -99,6 +99,8 @@ dependencies {
     implementation("androidx.room:room-runtime:$room_version")
     annotationProcessor("androidx.room:room-compiler:$room_version")
     kapt("androidx.room:room-compiler:$room_version")
+    implementation("androidx.room:room-ktx:$room_version")
+
 
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")

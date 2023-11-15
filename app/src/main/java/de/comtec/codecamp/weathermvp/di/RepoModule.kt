@@ -1,5 +1,6 @@
 package de.comtec.codecamp.weathermvp.di
 
+import android.app.Application
 import android.content.Context
 import androidx.room.Room
 import com.squareup.moshi.Moshi
@@ -70,14 +71,14 @@ object RepoModule {
     }
 
     @Provides
-    fun providesDatabase(context: Context): WeatherDatabase {
+    fun providesDatabase(@ApplicationContext context: Context): WeatherDatabase {
         return Room.databaseBuilder(
             context, WeatherDatabase::class.java, "weatherdatabase"
         ).build()
     }
 
     @Provides
-    fun providesSettingsRepo(context: Context): SettingsRepository {
+    fun providesSettingsRepo(@ApplicationContext context: Context): SettingsRepository {
         val dataStore = context.dataStore
         return SettingsRepository(dataStore)
     }
