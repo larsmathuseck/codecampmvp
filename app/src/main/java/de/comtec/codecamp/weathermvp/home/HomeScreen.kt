@@ -35,7 +35,7 @@ import eu.bambooapps.material3.pullrefresh.rememberPullRefreshState
 @Composable
 fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
 
-    val weather = viewModel.weatherData.value
+    val weather = viewModel.weatherData.collectAsState(initial = null).value
     val loading = viewModel.loading.value
     val hasNetwork = viewModel.internetAccess.collectAsState().value
 
@@ -64,10 +64,10 @@ fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
                 }
             }
             item {
-                TemperatureInfo(weather?.current?.temperature)
+                TemperatureInfo(weather?.temperature)
             }
             item {
-                PrecipitationInfo(weather?.current?.precipitationProbability)
+                PrecipitationInfo(weather?.precipitationProbability)
             }
             // TODO add a composable to show last update time
         }

@@ -9,4 +9,6 @@ data class WeatherData(
     @PrimaryKey val uid: Int = 1,
     @ColumnInfo(name = "temperature") val temperature: Double?,
     @ColumnInfo(name = "precipitation_probability") val precipitationProbability: Double?,
-)
+) {
+
+}

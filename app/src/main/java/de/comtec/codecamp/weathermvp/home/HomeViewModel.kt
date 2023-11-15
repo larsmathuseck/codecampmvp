@@ -17,7 +17,7 @@ class HomeViewModel @Inject constructor(
     private val networkRepository: NetworkRepository
 ) : ViewModel() {
 
-    val weatherData = mutableStateOf<WeatherData?>(null)
+    val weatherData = weatherRepository.weatherFlow
     val loading = mutableStateOf(false)
 
     val internetAccess = networkRepository.networkStatus
@@ -25,7 +25,7 @@ class HomeViewModel @Inject constructor(
     fun fetchWeatherData() {
         viewModelScope.launch {
             loading.value = true
-            weatherData.value = weatherRepository.fetchWeatherData()
+            weatherRepository.fetchWeatherData()
             delay(1000)
             loading.value = false
         }

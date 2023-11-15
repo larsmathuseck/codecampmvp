@@ -2,7 +2,6 @@ package de.comtec.codecamp.weathermvp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.squareup.moshi.JsonAdapter
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -11,13 +10,11 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import de.comtec.codecamp.weathermvp.data.database.WeatherDatabase
-import de.comtec.codecamp.weathermvp.data.model.WeatherData
 import de.comtec.codecamp.weathermvp.data.network.QuotesService
 import de.comtec.codecamp.weathermvp.data.network.WeatherService
 import de.comtec.codecamp.weathermvp.data.repositories.NetworkRepository
 import de.comtec.codecamp.weathermvp.data.repositories.QuotesRepository
 import de.comtec.codecamp.weathermvp.data.repositories.WeatherRepository
-import org.intellij.lang.annotations.PrintFormat
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
@@ -60,8 +57,9 @@ object RepoModule {
     }
 
     @Provides
-    fun provideWeatherRepo(api: WeatherService): WeatherRepository {
-        return WeatherRepository(api)
+    fun provideWeatherRepo(api: WeatherService, weatherDb: WeatherDatabase): WeatherRepository {
+        val weatherDao = weatherDb.weatherDao()
+        return WeatherRepository(api, weatherDao)
     }
 
     @Provides
@@ -75,5 +73,6 @@ object RepoModule {
             context, WeatherDatabase::class.java, "weatherdatabase"
         ).build()
     }
+
 
 }
