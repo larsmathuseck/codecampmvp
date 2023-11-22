@@ -101,6 +101,8 @@ dependencies {
     kapt("androidx.room:room-compiler:$room_version")
     implementation("androidx.room:room-ktx:$room_version")
 
+    // Workmanager
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
 
     // DataStore
     implementation("androidx.datastore:datastore-preferences:1.0.0")

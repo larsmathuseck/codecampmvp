@@ -3,6 +3,7 @@ package de.comtec.codecamp.weathermvp.di
 import android.app.Application
 import android.content.Context
 import androidx.room.Room
+import androidx.work.WorkManager
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -81,6 +82,11 @@ object RepoModule {
     fun providesSettingsRepo(@ApplicationContext context: Context): SettingsRepository {
         val dataStore = context.dataStore
         return SettingsRepository(dataStore)
+    }
+
+    @Provides
+    fun providesWorkmanager(@ApplicationContext context: Context): WorkManager {
+        return WorkManager.getInstance(context)
     }
 
 
