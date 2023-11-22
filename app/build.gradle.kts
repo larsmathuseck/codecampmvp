@@ -94,6 +94,10 @@ dependencies {
     kapt("com.google.dagger:hilt-android-compiler:2.48.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.1.0")
 
+    // Hilt worker support
+    implementation ("androidx.hilt:hilt-work:1.1.0")
+    kapt ("androidx.hilt:hilt-compiler:1.1.0")
+
     // Database
     val room_version = "2.6.0"
     implementation("androidx.room:room-runtime:$room_version")
